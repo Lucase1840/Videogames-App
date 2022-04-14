@@ -1,12 +1,13 @@
-const axios = require('axios');
-const { URL, API_KEY } = process.env;
 const { Videogame, Genre } = require('../db');
+const axios = require('axios');
 
 module.exports = {
     createVideogame: async function (req, res) {
         try {
+            let { rows } = await Genre.findAndCountAll();
+            if(rows.length === 0) {await axios.get('http://localhost:3001/genres')};
             let { name, description, releaseDate, raiting, genres, platforms } = req.body;
-            if(name, description, genres, platforms) return res.status(404).send('Falta enviar datos obligatorios');
+            if(!name, !description, !genres, !platforms) return res.status(404).send('Falta enviar datos obligatorios');
             let groupedPlatforms = platforms.join(', ');
             await Videogame.create({
                 name,
@@ -16,16 +17,16 @@ module.exports = {
                 platforms: groupedPlatforms
             })
             const createdGame = await Videogame.findOne({
-                order: [['createdAt', DESC]]
+                where: {
+                    name: name
+                }
             });
-            const addGenres = await genres.map( g => createdGame.setGenre(g));
+            // PARA QUE LA ASOCIACION FUNCIONE LOS GENRES DEBEN ESTAR YA CARGADOS EN LA DB.
+            const addGenres = await genres.map( g => createdGame.addGenre(g.id));
             await Promise.all(addGenres);
-
-            // Movie.belongsToMany(Actor, { through: 'ActorMovies' });
-            
             res.status(201).send('OK');
             } catch(error) {
-            console.log(error);
+            console.log(error.message);
         };
     }
 };
