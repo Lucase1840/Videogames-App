@@ -13,7 +13,6 @@ module.exports = (sequelize) => {
         unique: true
     }
   }, {
-    createdAt: true,
-    updatedAt: false
+    timestamps: false
   });
 };

@@ -1,5 +1,6 @@
 const axios = require('axios');
 const { URL, API_KEY } = process.env;
+const { Videogame } = require('../db');
 
 module.exports = {
     mainGamesAndSearch: async function (req, res) {
@@ -18,7 +19,7 @@ module.exports = {
                 if (gamesFound.length > 15) gamesFound = gamesFound.slice(0, 15);
                 res.send(gamesFound);
             } else {
-                let results = [];
+                let results = await await Videogame.findAll();
                 let i = 1;
                 do {
                     let games = await axios.get(`${URL}games?key=${API_KEY}&page=${i}`);
@@ -34,7 +35,7 @@ module.exports = {
                     results = results.concat(gamesToDisplay);
                     i++;
             } while(i <= 5);
-            res.send(results);
+            res.status(200).send(results);
             }  
         } catch(error) {
             console.log(error);

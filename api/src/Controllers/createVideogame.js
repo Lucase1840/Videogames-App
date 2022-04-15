@@ -22,8 +22,8 @@ module.exports = {
                 }
             });
             // PARA QUE LA ASOCIACION FUNCIONE LOS GENRES DEBEN ESTAR YA CARGADOS EN LA DB.
-            const addGenres = await genres.map( g => createdGame.addGenre(g.id));
-            await Promise.all(addGenres);
+            const addedGenre = await genres.map( g => createdGame.addGenre(g.id));
+            await Promise.all(addedGenre);
             res.status(201).send('OK');
             } catch(error) {
             console.log(error.message);
