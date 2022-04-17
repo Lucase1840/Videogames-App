@@ -26,6 +26,7 @@ module.exports = {
                     let gamesToDisplay = games.data.results.map(g => {
                         let genres = g.genres.map(g => g.name).join(', ');
                         let game = {
+                                    id: g.id,
                                     name: g.name,
                                     genres: genres,
                                     img: g.background_image

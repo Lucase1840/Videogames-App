@@ -15,7 +15,7 @@ module.exports = {
                 releaseDate,
                 raiting,
                 platforms: groupedPlatforms
-            })
+            });
             const createdGame = await Videogame.findOne({
                 where: {
                     name: name

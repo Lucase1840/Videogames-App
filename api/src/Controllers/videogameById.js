@@ -9,16 +9,16 @@ module.exports = {
             let genres = videogame.data.genres.map(g => g.name).join(', ');
             let platforms = videogame.data.platforms.map(g => g.platform.name).join(', ');
             let videogameDetails =  {
-                                     name: videogame.data.name,
-                                     genres: genres,
-                                     img: videogame.data.background_image,
-                                     description: videogame.data.description,
-                                     releaseDate: videogame.data.released,
-                                     rating: videogame.data.rating,
-                                     platforms: platforms
+                                    id: videogame.data.id,
+                                    name: videogame.data.name,
+                                    genres: genres,
+                                    img: videogame.data.background_image,
+                                    description: videogame.data.description,
+                                    releaseDate: videogame.data.released,
+                                    rating: videogame.data.rating,
+                                    platforms: platforms
                                     };
             res.send(videogameDetails);
-            console.log(idVideogame)
             } catch(error) {
             console.log(error);
         };

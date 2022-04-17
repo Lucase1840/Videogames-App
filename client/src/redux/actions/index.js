@@ -22,7 +22,7 @@ export const getAllGames = () => {
 export const searchById = (gameId) => {
     return function(dispatch) {
         try{
-            return axios.get(`http://localhost:3001/videogames/${gameId}`)
+            return axios.get(`http://localhost:3001/videogame/${gameId}`)
             .then(res => {
                 dispatch({type: SEARCH_BY_ID, payload:res.data});
             });
@@ -58,13 +58,15 @@ export const getGenres = () => {
     };
 };
 
-export const createGame = (payload) => {
-    return {
-        type: CREATE_GAME, 
-        payload: {
-            ...payload
-        }
+export const createGame = (data) => {
+    return function(dispatch) {
+        try {
+            return axios.post('http://localhost:3001/videogame', data)
+            .then(res => {
+                dispatch({type: CREATE_GAME, payload:res.data});
+            }).catch(error => {alert(error.message);});
+        } catch(error) {
+            alert(error);
+        };
     };
 };
-
-
