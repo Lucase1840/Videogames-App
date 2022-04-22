@@ -6,8 +6,8 @@ module.exports = {
         try {
             let { rows } = await Genre.findAndCountAll();
             if(rows.length === 0) {await axios.get('http://localhost:3001/genres')};
-            let { name, description, releaseDate, raiting, genres, platforms } = req.body;
-            if(!name, !description, !genres, !platforms) return res.status(404).send('Falta enviar datos obligatorios');
+            let { name, description, releaseDate, raiting, gGenres, platforms } = req.body;
+            if(!name, !description, !gGenres, !platforms) return res.status(404).send('Falta enviar datos obligatorios');
             let groupedPlatforms = platforms.join(', ');
             await Videogame.create({
                 name,
@@ -22,7 +22,9 @@ module.exports = {
                 }
             });
             // PARA QUE LA ASOCIACION FUNCIONE LOS GENRES DEBEN ESTAR YA CARGADOS EN LA DB.
-            const addedGenre = await genres.map( g => createdGame.addGenre(g.id));
+            let genresparsed = gGenres.map(g => JSON.parse(g));
+            console.log(genresparsed);
+            const addedGenre = await genresparsed.map( g => createdGame.addGenre(g.id));
             await Promise.all(addedGenre);
             res.status(201).send('OK');
             } catch(error) {

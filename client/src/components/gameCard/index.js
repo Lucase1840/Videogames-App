@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function GameCard(props) {
+    if(props.loading) return <p>Loading...</p>;
     return (
         <div>
             <div>

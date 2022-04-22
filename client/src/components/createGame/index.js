@@ -4,11 +4,8 @@ import { getGenres, createGame } from '../../redux/actions';
 
 function CreateGame() {   
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getGenres());
-    }, [dispatch]);
-    const genres = useSelector(state => state.genres);
-    let platforms = [
+    const gameGenres = useSelector(state => state.genres);
+    const platforms = [
         { name: 'PC' },
         { name: 'PlayStation 5' },
         { name: 'PlayStation 4' },
@@ -61,24 +58,25 @@ function CreateGame() {
         { name: 'Neo Geo' },
         { name: 'Web'}
     ];
-
     const [input, setInput] = React.useState({
         name: '',
         description: '',
         releaseDate: '',
         raiting: '',
-        genres: [],
+        gGenres: [],
         platforms: [],
     });
-
     const [errors, setErrors] = React.useState({
         name: '',
         description: '',
         releaseDate: '',
         raiting: '',
-        genres: '',
+        gGenres: '',
         platforms: '',
     });
+    useEffect(() => {
+        dispatch(getGenres());
+    }, [dispatch]); 
 
     const handleInputChange = function(e) {
         setInput({
@@ -88,31 +86,32 @@ function CreateGame() {
         setErrors(validate({
             ...input,
             [e.target.name]: e.target.value
-        }))
+        }));
     };
 
     const handleCheckboxChange = function(e) {
-        if (input.genres.includes(e.target.value)) {
+        if (input.gGenres.includes(e.target.value)) {
             setInput({
                 ...input,
-                genres: input.genres.filter(g => g !== e.target.value)
+                gGenres: input.gGenres.filter(g => g !== e.target.value)
             });
         } else {
             setInput({
                 ...input,
-                genres: [...input.genres, e.target.value]
-            })
+                gGenres: [...input.gGenres, e.target.value]
+            });
             setErrors(validate({
                 ...input,
-                genres: [...input.genres, e.target.value]
-            }))
+                gGenres: [...input.gGenres, e.target.value]
+            }));
         };
     };
 
     const handleListChange = function (e) {
+        if(input.platforms.includes(e.target.value)) return;
             setInput({
                 ...input,
-                platforms: input.platforms.concat(e.target.value)
+                platforms: [...input.platforms, e.target.value]
             });
             setErrors(validate({
                 ...input,
@@ -131,19 +130,17 @@ function CreateGame() {
         e.preventDefault();
         if (Object.keys(errors).length === 0) {
             try{
-                dispatch(createGame(input))
+                dispatch(createGame(input));
+                e.target.reset();
             } catch(err) {
-                console.log(err)
+                console.log(err);
             }
         } else {
-            alert('Mandatory fields are not filled');
+            alert('All the mandatory fields are not filled');
         };
-    }
+    };
 
 
-
-    console.log(errors)
-    console.log(input)
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -160,12 +157,18 @@ function CreateGame() {
                 <input name="raiting" onChange={handleInputChange} placeholder="4.15"/>
                 <span>{errors.raiting}</span><br/>
                 <label>Genres:</label><br/>
-                <span>{errors.genres}</span>
+                <span>{errors.gGenres}</span>
 
-                {genres ? genres.map(gen => {
+                {gameGenres ? gameGenres.map(gen => {
                     return (
                         <div key={gen.id}>
-                            <input type='checkbox' id={gen.name} name='genres' onChange={handleCheckboxChange} value={gen.name}></input>
+                            <input
+                             type='checkbox'
+                             id={gen.name}
+                             name='genres'
+                             onChange={handleCheckboxChange}
+                             value={JSON.stringify(gen)}>
+                             </input>
                             <label>{gen.name}</label>
                         </div>
                     )
@@ -173,7 +176,8 @@ function CreateGame() {
 
                 <label>Platforms: </label><br/>
                 <span>{input.platforms.length < 0 || errors.platforms}</span><br/>
-                    <select name='platforms' id='platforms' onChange={handleListChange}>
+                    <select name='platforms' id='platforms' defaultValue='true' onChange={handleListChange}>
+                    <option value={true} disabled="disabled">Select Platforms</option>  
                         {platforms.map((p, i) => {
                             return (                    
                                 <option 
@@ -204,10 +208,10 @@ function CreateGame() {
 
 export const validate = function (input) {
     let errors = {};
-    if(!input.name) {
-        errors.username = 'The videogame name is required';
-    } else if (!/^[^<>*%:&\\]*$/g.test(input.username)) {
-        errors.username = 'The videogame name can not contain special characters';
+    if(!input.name || input.name.length < 3) {
+        errors.name = 'The videogame name must be at least 3 characters long';
+    } else if (/["`'#%&,:;<>=@{}~$()*+/?[\]^|]+/.test(input.name)) {
+        errors.name = 'The videogame name can not contain special characters';
     };
     if(input.description.length < 10) {
         errors.description = 'The description must be at least 10 characters long';
@@ -218,20 +222,20 @@ export const validate = function (input) {
     if((input.raiting > 5) || (input.raiting < 0) || !/\d[.,]\d\d/.test(input.raiting)) {
         errors.raiting = 'The raiting must be a number not greater than 5, and with at least one decimal';
     };
-    if(input.genres.length < 1) {
-        errors.genres = 'The videogame must have at least one genre';
+    if(input.gGenres.length < 1) {
+        errors.gGenres = 'The videogame must have at least one genre';
     }; 
     if(input.platforms.length < 1) {
         errors.platforms = 'The videogame must have at least one platform';
     }
-    if(input.genres.length < 1) {
-        errors.genres = 'At least one genre must be selected';
+    if(input.gGenres.length < 1) {
+        errors.gGenres = 'At least one genre must be selected';
     }
     if(input.platforms.length < 1) {
         errors.platforms = 'At least one platform must be selected';
     }
     return errors;
-}
+};
 
 
 export default CreateGame;

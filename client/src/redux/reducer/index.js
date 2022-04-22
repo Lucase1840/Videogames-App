@@ -10,7 +10,7 @@ const rootReducer = (state = initialState, action) => {
         if(action.type === GET_ALL_GAMES) {
             return {
                 ...state,
-                mainGames: state.mainGames.concat(action.payload)
+                mainGames: action.payload
             };
         } 
         if(action.type === SEARCH_BY_ID) {
@@ -34,7 +34,7 @@ const rootReducer = (state = initialState, action) => {
         if(action.type === CREATE_GAME) {
             return {
                 ...state,
-                mainGames: state.mainGames.concat(action.payload)
+                // mainGames: state.mainGames.concat(action.payload)
             };
         } else {
             return state;

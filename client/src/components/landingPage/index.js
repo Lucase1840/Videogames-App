@@ -1,3 +1,13 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllGames } from '.../redux/actions/index';
+import style from './landingPage.css'
+
+function LandingPage() {
+        
+    return (
+        <div class={style}>
+            <div>Press START to beguin</div>
+        </div>
+    )
+}
+
+export default LandingPage;

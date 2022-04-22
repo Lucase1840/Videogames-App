@@ -7,12 +7,14 @@ module.exports = {
         try {
             let { rows } = await Genre.findAndCountAll();
             if(rows.length !== 0) {
-                let myData = await Genre.findAll();
-                res.send(myData);
+                return res.json(myData);
             } else {
                 let genresApi = await axios.get(`${URL}genres?key=${API_KEY}`);
                 let genresNames = genresApi.data.results.map(g => {
-                    return { name: g.name };
+                    return { 
+                        name: g.name,
+                        img: g.image_background
+                    };
                 });
                 await Genre.bulkCreate(genresNames);
                 let genresDb = await Genre.findAll();
