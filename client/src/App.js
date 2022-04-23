@@ -1,19 +1,17 @@
 import './App.css';
 import { Route } from 'react-router-dom';
-import Games from './components/games';
-import GameDetail from './components/gameDetail';
+import Games from './components/games/Games.jsx';
+import GameDetail from './components/gameDetail/GameDetail.jsx';
 import CreateGame from './components/createGame';
-import LandingPage from './components/landingPage';
+import LandingPage from './components/landingPage/LandingPage.jsx';
 
 function App() {
   return (
     <div className="App">
-
-        <Route exact path='/videogames'> <Games/> </Route>
-
         <Route exact path='/videogame/:id' render= {({match}) =>(
           <GameDetail match={match}/>)}
         />
+        <Route exact path='/videogames'> <Games/> </Route>
 
         <Route exact path='/videogame/'> <CreateGame/></Route>
         

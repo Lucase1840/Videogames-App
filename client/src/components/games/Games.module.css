@@ -1,0 +1,21 @@
+.mainContainer {
+    background-image: url('../../images/optional.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+.gamesContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly; 
+    z-index: 1 !important;
+}
+
+.pagination {  
+    align-self: flex-end;
+}

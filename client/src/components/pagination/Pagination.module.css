@@ -1,0 +1,33 @@
+.container {
+    text-align: center;
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding-bottom: 15px;
+}
+
+.pageList {
+    width: 100%;
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.items {
+    border: 1px solid white;
+    border-radius: 50px;
+    color: white;
+    font-size: 20px;
+    width: 100%;
+    list-style-type: none;
+    padding-bottom: 4px;
+    margin-right: 9px;
+}
+    
+.pages {
+    color: rgb(199, 199, 199);
+    text-decoration: none;
+}

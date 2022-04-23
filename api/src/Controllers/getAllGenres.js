@@ -5,8 +5,8 @@ const { Genre } = require('../db');
 module.exports = {
     getAllGenres: async function (req, res) {
         try {
-            let { rows } = await Genre.findAndCountAll();
-            if(rows.length !== 0) {
+            let myData = await Genre.findAll();
+            if(myData.length !== 0) {
                 return res.json(myData);
             } else {
                 let genresApi = await axios.get(`${URL}genres?key=${API_KEY}`);

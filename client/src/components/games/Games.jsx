@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllGames, getGenres } from '../../redux/actions';
-import GameCard from '../gameCard';
-import Pagination from '../pagination';
+import GameCard from '../gameCard/gameCard';
+import Pagination from '../pagination/Pagination.jsx';
+import style from './Games.module.css';
 
 function Games() {
     // STATES & DISPATCHS
@@ -42,7 +43,7 @@ function Games() {
    
 
     return (
-        <div id='top'>
+        <div id='top' className={style.mainContainer}>
             <nav>
                 <select name='filterByGenres' defaultValue={true} >
                     <option value={true} disabled='disabled'>Filter by genres</option>
@@ -53,20 +54,22 @@ function Games() {
                     }): 'Not Working'};
                 </select>
             </nav>
+            <div className={style.gamesContainer}>
             {currentGames ? currentGames.map(g => {
                 return (
                     <GameCard
                         key={g.id}
                         id={g.id}
-                        name={g.name}
                         img={g.img}
+                        name={g.name}
                         genres={g.genres}
                         loading={loading}
                     />
                 )
             }) : 'No funca'}
-
-            <Pagination
+            </div>
+            
+            <Pagination className={style.pagination}
                 gamesPerPage={gamesPerPage}
                 totalGames={games.length}
                 paginate={paginate}
