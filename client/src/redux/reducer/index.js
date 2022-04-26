@@ -1,9 +1,11 @@
-import { GET_ALL_GAMES, SEARCH_BY_ID, SEARCH_BY_NAME, GET_GENRES, CREATE_GAME } from "../actions";
+import { GET_ALL_GAMES, SEARCH_BY_ID, SEARCH_BY_NAME, GET_GENRES, CREATE_GAME, SET_SEARCH_NAME } from "../actions";
 
 const initialState = {
     mainGames: [],
     gameDetails: {},
-    genres: []
+    genres: [],
+    searchName: '',
+    gamesByName: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -22,7 +24,7 @@ const rootReducer = (state = initialState, action) => {
         if(action.type === SEARCH_BY_NAME) {
             return {
                 ...state,
-                mainGames: action.payload
+                gamesByName: action.payload
             };
         }
         if(action.type === GET_GENRES) {
@@ -36,6 +38,12 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 // mainGames: state.mainGames.concat(action.payload)
             };
+        }
+        if(action.type === SET_SEARCH_NAME) {
+            return {
+                ...state,
+                searchName: action.payload
+            }
         } else {
             return state;
         };

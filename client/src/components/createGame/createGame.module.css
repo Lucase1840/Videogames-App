@@ -1,0 +1,128 @@
+.mainContainer {
+    width: 100%;
+    height: auto;
+    background-image: url('../../images/optional.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+}
+
+.title {
+    color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  justify-content: flex-start;
+  width: 300px;
+  min-height: 894px;
+  margin: 0 auto;
+}
+
+.for {
+    grid-template-columns: 10vw 10vw 10vw;
+    justify-content: center;
+    grid-column-gap: 30px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.fromNameToGenres {
+    color: white;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    align-content: stretch;
+    position: relative;
+}
+
+.fromNameToGenres span {
+    margin-bottom: -10px;
+    text-align: left;
+    display: hidden;
+    color: red;
+    position: relative;
+}
+
+.fromNameToGenres input {
+    width: 310px;
+}
+
+.fromNameToGenres textarea {
+    resize: none;
+}
+
+.genres {
+    color: white;
+    width: 120px;
+    height: 150px;
+    display: grid;
+    grid-template-columns: 10vw 10vw;
+    justify-content: center;
+    grid-column-gap: 30px;
+    margin: 0 auto;
+    position: relative;
+    left: 54px;
+    margin-bottom: 100px;
+    margin-top: 20px;
+}
+
+.genresItems {
+    display: flex;
+}
+
+.selectTag {
+    font-size: 16px;
+    width: 300px;
+}
+.labelSelected {
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+
+.selected {
+    width: 80px;
+    text-align: center;
+    color: white;
+    display: grid;
+    grid-template-columns: 108px 108px 108px;
+}
+
+.selected :hover {
+    color: red;
+    cursor: pointer;
+}
+
+.selected span {
+    color: white;
+    text-align: center;
+    width: 100px;
+    margin-bottom: 5px;
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.button {
+    width: 300px;
+    height: 50px;
+    background-color: rgb(51, 51, 51);
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 50px;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.button :hover {
+    background-color: rgb(255, 255, 255);
+    color: rgb(51, 51, 51);
+    cursor: pointer;
+}

@@ -2,6 +2,7 @@ import React, { useEffect, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchById } from '../../redux/actions';
 import style from './GameDetail.module.css'
+import NavBar from '../navBar/navBar.jsx';
 
 function GameDetail(props) {
     const dispatch = useDispatch();
@@ -13,7 +14,9 @@ function GameDetail(props) {
     }, [dispatch, id]);
     return (
         <div className={style.background}>
+            <NavBar/>
             <div className={style.container}>
+             
                 <div className={style.imageContainer}>
                     <img 
                             src={game.img} 
@@ -24,15 +27,15 @@ function GameDetail(props) {
                    
                 <div className={style.detailsContainer}>
                     <h1>{game.name}</h1>
-                    <p>Generos: {game.genres}</p>
+                    <p>Genres: {game.genres}</p>
                     <p>Release Date: {game.releaseDate}</p>
                     <p>Raiting: {game.rating}</p>
-                    <p>Plataformas: {game.platforms}</p>
+                    <p>Platforms: {game.platforms}</p>
                     <p>Game description: </p>
                     <div dangerouslySetInnerHTML={{ __html: game.description }}/>
                 </div>
+                
             </div>
-
         </div>
     )
 }

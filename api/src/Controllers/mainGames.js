@@ -17,7 +17,17 @@ module.exports = {
                 let gamesFound = results.filter(g => {return g.name.toLowerCase().includes(name.toLowerCase())});
                 if(gamesFound.length < 1) return res.status(404).send({message: 'No games found'});
                 if (gamesFound.length > 15) gamesFound = gamesFound.slice(0, 15);
-                res.send(gamesFound);
+                let gamesToDisplay = gamesFound.map(g => {
+                    let genres = g.genres.map(g => g.name).join(', ');
+                    let game = {
+                                id: g.id,
+                                name: g.name,
+                                genres: genres,
+                                img: g.background_image
+                                };
+                    return game;
+                    });
+                res.send(gamesToDisplay);
             } else {
                 let results = await await Videogame.findAll();
                 let i = 1;

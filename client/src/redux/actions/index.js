@@ -5,6 +5,7 @@ export const SEARCH_BY_ID  = 'SEARCH_BY_ID';
 export const SEARCH_BY_NAME = 'SEARCH_BY_NAME';
 export const GET_GENRES = 'GET_GENRES';
 export const CREATE_GAME = 'CREATE_GAME';
+export const SET_SEARCH_NAME = 'SET_SEARCH_NAME';
 
 export const getAllGames = () => {
     return function(dispatch) {
@@ -70,3 +71,10 @@ export const createGame = (data) => {
         };
     };
 };
+
+export const setSearchName = (gameName) => {
+    return {
+        type: SET_SEARCH_NAME,
+        payload: gameName
+    }
+}

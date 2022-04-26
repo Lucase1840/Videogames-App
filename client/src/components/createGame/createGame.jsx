@@ -1,6 +1,7 @@
 import React, { useEffect, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGenres, createGame } from '../../redux/actions';
+import style from './createGame.module.css';
 
 function CreateGame() {   
     const dispatch = useDispatch();
@@ -140,68 +141,80 @@ function CreateGame() {
         };
     };
 
-
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <label>Name:</label>
-                <input name="name" onChange={handleInputChange}/>
-                <span>{errors.name}</span><br/>
-                <label>Description:</label>
-                <input name="description" onChange={handleInputChange}/>
-                <span>{errors.description}</span><br/>
-                <label>Release Date:</label>
-                <input name="releaseDate" onChange={handleInputChange} placeholder="YYYY-MM-DD"/>
-                <span>{errors.releaseDate}</span><br/>
-                <label>Raiting:</label>
-                <input name="raiting" onChange={handleInputChange} placeholder="4.15"/>
-                <span>{errors.raiting}</span><br/>
-                <label>Genres:</label><br/>
-                <span>{errors.gGenres}</span>
+        <div className={style.mainContainer}>
+            <h2 className={style.title}>Create your Videogame</h2>
+            <div className={style.container}>
+                <form onSubmit={handleSubmit} className={style.for}>
+                    <div className={style.fromNameToGenres}>
+                        <label>Name:</label>
+                        <input name="name" onChange={handleInputChange} />
+                        <span>{errors.name}</span><br/>
+                        <label>Description:</label>
+                        <textarea 
+                            name="description" 
+                            onChange={handleInputChange}
+                            rows='3'
+                            cols='40' />
+                        <span>{errors.description}</span><br/>
+                        <label>Release Date:</label>
+                        <input name="releaseDate" onChange={handleInputChange} placeholder="YYYY-MM-DD" />
+                        <span>{errors.releaseDate}</span><br/>
+                        <label>Raiting:</label>
+                        <input name="raiting" onChange={handleInputChange} placeholder="4.15" />
+                        <span>{errors.raiting}</span><br/>
+                        <label>Genres:</label>
+                        <span className={style.asd}>{errors.gGenres}</span>
+                    </div>
 
-                {gameGenres ? gameGenres.map(gen => {
-                    return (
-                        <div key={gen.id}>
-                            <input
-                             type='checkbox'
-                             id={gen.name}
-                             name='genres'
-                             onChange={handleCheckboxChange}
-                             value={JSON.stringify(gen)}>
-                             </input>
-                            <label>{gen.name}</label>
-                        </div>
-                    )
-                }) :'No funca'}
-
-                <label>Platforms: </label><br/>
-                <span>{input.platforms.length < 0 || errors.platforms}</span><br/>
-                    <select name='platforms' id='platforms' defaultValue='true' onChange={handleListChange}>
-                    <option value={true} disabled="disabled">Select Platforms</option>  
-                        {platforms.map((p, i) => {
-                            return (                    
-                                <option 
-                                    key={i}
-                                    name='platforms'
-                                    value={p.name}
-                                >{p.name} </option>                                              
+                    <div className={style.genres}>
+                        {gameGenres ? gameGenres.map(gen => {
+                            return (
+                                <div key={gen.id} className={style.genresItems}>
+                                    <input
+                                        type='checkbox'
+                                        id={gen.name}
+                                        name='genres'
+                                        onChange={handleCheckboxChange}
+                                        value={JSON.stringify(gen)}>
+                                    </input>
+                                    <label>{gen.name}</label>
+                                </div>
                             )
-                        })}
-                    </select>
+                        }) : 'No funca'}
+                    </div>
 
-                <div>Selected: {input.platforms.map((p, i) => {
-                    return (
-                        <React.Fragment key={i}>
-                            <span onClick={handleListDelete}>
-                                {p}
-                            </span> <br />
-                        </React.Fragment>
-                    );
-                })}
-                </div>
-        
-                <button type='submit'>Submit</button>
-            </form>
+                    <div className={style.fromNameToGenres}>
+                        <label>Platforms: </label>
+                        <span>{input.platforms.length < 0 || errors.platforms}</span><br/>
+                        <select name='platforms' id='platforms' defaultValue='true' onChange={handleListChange} className={style.selectTag}>
+                            <option value={true} disabled="disabled">Select Platforms</option>
+                            {platforms.map((p, i) => {
+                                return (
+                                    <option
+                                        key={i}
+                                        name='platforms'
+                                        value={p.name}
+                                    >{p.name}</option>
+                                )
+                            })}
+                        </select><br/>
+                        <label className={style.labelSelected}>Selected:</label>    
+                        <div className={style.selected}>{input.platforms.map((p, i) => {
+                            return (
+                                <React.Fragment key={i}>
+                                    <span onClick={handleListDelete}>
+                                        {p}
+                                    </span>
+                                </React.Fragment>
+                            );
+                        })}
+                        </div>
+                        
+                        <button type='submit' className={style.button}>Create Game</button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };
