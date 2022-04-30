@@ -39,7 +39,8 @@ module.exports = {
                                     id: g.id,
                                     name: g.name,
                                     genres: genres,
-                                    img: g.background_image
+                                    img: g.background_image,
+                                    rating: g.rating
                                     };
                         return game;
                         });

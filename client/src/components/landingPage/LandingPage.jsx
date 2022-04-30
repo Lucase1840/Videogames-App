@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import style from './LandingPage.module.css';
 import { NavLink } from 'react-router-dom';
-import { getAllGames } from '../../redux/actions';
+import { getAllGames, getGenres } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
 
 function LandingPage() {
@@ -9,7 +9,8 @@ function LandingPage() {
     const dispatch = useDispatch();
     
     useEffect( () => {
-        return dispatch(getAllGames());
+        dispatch(getAllGames());
+        dispatch(getGenres())
     }, [dispatch]);
 
     return (
