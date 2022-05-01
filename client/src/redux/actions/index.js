@@ -7,13 +7,9 @@ export const GET_GENRES = 'GET_GENRES';
 export const CREATE_GAME = 'CREATE_GAME';
 export const SET_SEARCH_NAME = 'SET_SEARCH_NAME';
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
-export const SORT_ALPHABETICALLY = 'SORT_ALPHABETICALLY';
-export const SORT_BY_RATING = 'SORT_BY_RATING';
+export const SORT_ALPHABETICALLY_OR_RATING = 'SORT_ALPHABETICALLY_OR_RATING'
+export const FILTER_BY_SOURCE = 'FILTER_BY_SOURCE';
 export const ACTIVE_FILTERS = 'ACTIVE_FILTERS';
-
-
-
-
 
 export const getAllGames = () => {
     return async function (dispatch) {
@@ -95,17 +91,24 @@ export const filterByGenre = (filters) => {
     };
 };
 
-export const sortAlphabetically = (alphabeticalOrder) => {
+export const sortAlphabeticallyOrRating = (filterBy) => {
     return {
-        type: SORT_ALPHABETICALLY,
-        payload: alphabeticalOrder
+        type: SORT_ALPHABETICALLY_OR_RATING,
+        payload: filterBy
     };
 };
 
-export const sortByRating = (ratingOrder) => {
+export const filterBySource = (filters) => {
     return {
-        type: SORT_BY_RATING,
-        payload: ratingOrder
+        type: FILTER_BY_SOURCE,
+        payload: filters
+    };
+};
+
+export const activeFilters = (filters) => {
+    return {
+        type: ACTIVE_FILTERS,
+        payload: filters
     };
 };
 

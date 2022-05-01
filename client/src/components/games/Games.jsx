@@ -10,8 +10,10 @@ function Games() {
     const dispatch = useDispatch();
     const gamesFiltered = useSelector(state => state.filteredGames);
     const mainGamesToShow = useSelector(state => state.mainGames);
+    const activeFilters = useSelector(state => state.activeFilters);
     const [loading, setLoading] = useState(false);
     const holeState = useSelector(state => state);
+
     // PAGINATION
     const [currentPage, setCurrentPage] = useState(1);
     const [gamesPerPage] = useState(15);
@@ -20,7 +22,6 @@ function Games() {
     const paginate = function(pageNumber) {
         setCurrentPage(pageNumber);
     };
-
 
     // COMPONENTE MOUNT
     let games;
@@ -33,8 +34,6 @@ function Games() {
         }
     }, [holeState]);
 
-
-    console.log(currentPage)
 
     return (
         <div id='top' className={style.mainContainer}>

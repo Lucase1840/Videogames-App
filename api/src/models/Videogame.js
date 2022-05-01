@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
         .toLocaleString('en-GB', { timeZone: 'UTC' });
       }
     },
-    raiting: {
+    rating: {
       type: DataTypes.FLOAT,
     },
     platforms: {

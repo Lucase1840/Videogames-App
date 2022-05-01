@@ -1,6 +1,6 @@
 import React, { useEffect, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres, createGame } from '../../redux/actions';
+import { getGenres, createGame, getAllGames } from '../../redux/actions';
 import style from './createGame.module.css';
 
 function CreateGame() {   
@@ -63,7 +63,7 @@ function CreateGame() {
         name: '',
         description: '',
         releaseDate: '',
-        raiting: '',
+        rating: '',
         gGenres: [],
         platforms: [],
     });
@@ -71,7 +71,7 @@ function CreateGame() {
         name: '',
         description: '',
         releaseDate: '',
-        raiting: '',
+        rating: '',
         gGenres: '',
         platforms: '',
     });
@@ -132,6 +132,7 @@ function CreateGame() {
         if (Object.keys(errors).length === 0) {
             try{
                 dispatch(createGame(input));
+                dispatch(getAllGames());
                 e.target.reset();
             } catch(err) {
                 console.log(err);
@@ -160,9 +161,9 @@ function CreateGame() {
                         <label>Release Date:</label>
                         <input name="releaseDate" onChange={handleInputChange} placeholder="YYYY-MM-DD" />
                         <span>{errors.releaseDate}</span><br/>
-                        <label>Raiting:</label>
-                        <input name="raiting" onChange={handleInputChange} placeholder="4.15" />
-                        <span>{errors.raiting}</span><br/>
+                        <label>Rating:</label>
+                        <input name="rating" onChange={handleInputChange} placeholder="4.15" />
+                        <span>{errors.rating}</span><br/>
                         <label>Genres:</label>
                         <span className={style.asd}>{errors.gGenres}</span>
                     </div>
@@ -232,8 +233,8 @@ export const validate = function (input) {
     if(!/^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/.test(input.releaseDate)) {
         errors.releaseDate = 'The release date must be in the format YYYY-MM-DD';
     };
-    if((input.raiting > 5) || (input.raiting < 0) || !/\d[.,]\d\d/.test(input.raiting)) {
-        errors.raiting = 'The raiting must be a number not greater than 5, and with at least one decimal';
+    if((input.rating > 5) || (input.rating < 0) || /^(?:[1-9]\d{0,4}|0)\.\d$/.test(input.rating)) {
+        errors.rating = 'The rating must be a number not greater than 5, and with at least two decimals';
     };
     if(input.gGenres.length < 1) {
         errors.gGenres = 'The videogame must have at least one genre';
