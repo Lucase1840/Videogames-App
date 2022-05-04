@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import style from './Pagination.module.css'
 
 function Pagination({ gamesPerPage, totalGames, paginate }) {
     
+    const actualPage = useSelector(state => state.pagination);
+
     useEffect(() => {
     }, [totalGames]);
 
@@ -18,13 +21,13 @@ function Pagination({ gamesPerPage, totalGames, paginate }) {
                     return (
                         <li 
                             key={number}
-                            className={style.items}>
+                            className={(actualPage === number) ? style.itemsSelected : style.items}>
                             <a
                                 onClick={
                                     () => paginate(number)
                                 }
                                 href='#top'
-                                className={style.pages}
+                                className={(actualPage === number) ? style.pagesSelected: style.pages}
                             >{number}
                             </a>
                         </li>

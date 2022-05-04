@@ -1,11 +1,13 @@
 import React, { useEffect, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres, createGame, getAllGames } from '../../redux/actions';
+import { getGenres, createGame, getAllGames, pagination } from '../../redux/actions';
+import { useHistory } from 'react-router-dom';
 import style from './createGame.module.css';
 
 function CreateGame() {   
     const dispatch = useDispatch();
     const gameGenres = useSelector(state => state.genres);
+    let history = useHistory();
     const platforms = [
         { name: 'PC' },
         { name: 'PlayStation 5' },
@@ -76,6 +78,7 @@ function CreateGame() {
         platforms: '',
     });
     useEffect(() => {
+        dispatch(pagination(1));
         dispatch(getGenres());
     }, [dispatch]); 
 
@@ -131,9 +134,11 @@ function CreateGame() {
         e.preventDefault();
         if (Object.keys(errors).length === 0) {
             try{
+                alert("Videogame added successfully to the data base ¡Let's go see it!");
                 dispatch(createGame(input));
                 dispatch(getAllGames());
                 e.target.reset();
+                history.push('/videogames');
             } catch(err) {
                 console.log(err);
             }

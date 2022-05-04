@@ -1,0 +1,45 @@
+@font-face {
+    font-family: 'ArcadeClassic';
+    src: url('../../fonts/ARCADECLASSIC.TTF') format("truetype");
+}
+
+.container {
+    background-color: black;
+}
+
+.loading {
+    background-image: url('../../images/loading-image.jpg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-height: 86vh;
+    height: auto;
+    animation-name: loading;
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 2;
+    animation-iteration-count: infinite;
+    color: white;
+    position: relative;
+    margin-left: 325px;
+    
+}
+
+.container h2 {
+    color: white;
+    position: absolute;
+    bottom: 10%;
+    right: 45%;
+    margin: auto;
+    text-align: cneter;
+    margin: auto;
+    font-family: 'ArcadeClassic';
+    font-size: 3vw;
+    letter-spacing: 1px
+}
+
+
+@keyframes loading {
+0% {opacity: 0;}  
+50% {opacity: 1}
+100% {opacity: 0}
+}

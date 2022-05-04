@@ -10,6 +10,7 @@ export const FILTER_BY_GENRE = 'FILTER_BY_GENRE';
 export const SORT_ALPHABETICALLY_OR_RATING = 'SORT_ALPHABETICALLY_OR_RATING'
 export const FILTER_BY_SOURCE = 'FILTER_BY_SOURCE';
 export const ACTIVE_FILTERS = 'ACTIVE_FILTERS';
+export const PAGINATION = 'PAGINATION';
 
 export const getAllGames = () => {
     return async function (dispatch) {
@@ -109,6 +110,13 @@ export const activeFilters = (filters) => {
     return {
         type: ACTIVE_FILTERS,
         payload: filters
+    };
+};
+
+export const pagination = (pageNumber) => {
+    return {
+        type: PAGINATION,
+        payload: pageNumber
     };
 };
 

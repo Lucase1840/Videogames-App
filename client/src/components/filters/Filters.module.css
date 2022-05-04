@@ -1,0 +1,43 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    align-items: flex-end;
+    height: 110px;
+}
+
+.select {
+    text-decoration: none;
+    margin: 10px 15px 0px 0px;
+    line-height: 1.3;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(215, 215, 215);
+    border: 2px solid rgb(215, 215, 215);
+    border-radius: 10px;
+    background: rgb(0, 0, 0);
+    /* text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; */
+}
+
+.select option {
+    text-decoration: none;
+    color: white;
+    margin: 10px 15px 0px 0px;
+    line-height: 1.3;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    /* text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; */
+}
+
+.select:focus {
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}
+
+.select:focus option {
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+}

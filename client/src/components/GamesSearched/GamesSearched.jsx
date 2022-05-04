@@ -3,17 +3,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import GameCard from '../gameCard/gameCard';
 import Pagination from '../pagination/Pagination.jsx';
 import style from './GamesSearched.module.css';
+import Loading from '../loading/loading.jsx';
+import { pagination } from '../../redux/actions';
 
 function GamesSearched() {
     // STATES & DISPATCHS
+    const dispatch = useDispatch();
     const gamesSearched = useSelector(state => state.gamesByName);
-    // const [loading, setLoading] = useState(false);
+    const name = useSelector(state => state.searchName);
+    const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        
-    }, []);
-            
+        dispatch(pagination(1));
+        if(!name) {
+            setLoading(false);
+        } else {
+            setLoading(true);
+        }
+    }, [gamesSearched, name]);
+    
     
     const [gamesPerPage] = useState(15);
     const indexOfLastGame = currentPage * gamesPerPage;
@@ -26,28 +35,33 @@ function GamesSearched() {
     };
 
     return (
-        <div id='top' className={style.mainContainer}>
-            <div className={style.gamesContainer}>
-            {currentGames ? currentGames.map(g => {
-                return (
-                    <GameCard
-                        key={g.id}
-                        id={g.id}
-                        img={g.img}
-                        name={g.name}
-                        genres={g.genres}
-                        // loading={loading}
-                    />
-                )
-            }) : 'Not Working'}
-            </div>
-            
-            <Pagination className={style.pagination}
-                gamesPerPage={gamesPerPage}
-                totalGames={gamesSearched.length}
-                paginate={paginate}
-            />
-        </div>
+        <>
+            {loading === false ?
+                (currentGames[0] !== 'No games found' ?
+                    <div id='top' className={style.mainContainer}>
+                        <div className={style.gamesContainer}>
+                            {currentGames ? currentGames.map(g => {
+                                return (
+                                    <GameCard
+                                        key={g.id}
+                                        id={g.id}
+                                        img={g.img}
+                                        name={g.name}
+                                        genres={g.genres}
+                                    />
+                                )
+                            }) : 'Not Working'}
+                        </div>
+
+                        <Pagination className={style.pagination}
+                            gamesPerPage={gamesPerPage}
+                            totalGames={gamesSearched.length}
+                            paginate={paginate}
+                        />
+                    </div> : 
+                        <div className={style.noGames}><h1>¡No videogames found!</h1></div>) 
+            : (<Loading />)}
+        </>
     );
 }
 

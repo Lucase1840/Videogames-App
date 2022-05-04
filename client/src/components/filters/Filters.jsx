@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGenres, filterByGenre, sortAlphabeticallyOrRating, activeFilters, filterBySource } from '../../redux/actions';
+import { getGenres, filterByGenre, sortAlphabeticallyOrRating, activeFilters, filterBySource, pagination } from '../../redux/actions';
+import style from '../filters/Filters.module.css';
 
 function Filters() {
     const dispatch = useDispatch();
     const genres = useSelector(state => state.genres);
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     let filters = {
             gameGenre: '',
             sortAlphabetically: '',
@@ -17,25 +18,29 @@ function Filters() {
     let sourceOption = useRef(null)
 
     useEffect(() => {
-        setLoading(true);
-        dispatch(getGenres());
-        setLoading(false);
+        // setLoading(true);
+        if(genres.length === 0) {
+            dispatch(getGenres());
+        }
+        // setLoading(false);
     }, []);
     
     const handleGenreChange = function (e) {
+        dispatch(pagination(1));
         filters = {
             sortAlphabetically: '',
             ratingSort: '',
             source: '',
             gameGenre: e.target.value
         }
+        dispatch(activeFilters(filters));
         dispatch(filterByGenre(e.target.value));
         sortOption.current.selected = 'selected';
         sourceOption.current.selected = 'selected';
-        dispatch(activeFilters(filters));
     };
 
     const handleAlphAndRating = function (e) {
+        dispatch(pagination(1));
         if (e.target.value === 'ASC' || e.target.value === 'DESC') {
             filters.sortAlphabetically = e.target.value
             dispatch(sortAlphabeticallyOrRating(e.target.value));
@@ -48,30 +53,34 @@ function Filters() {
     };
 
     const handleSourceSelection = function (e) {
+        dispatch(pagination(1));
         filters.source = e.target.value
         dispatch(filterBySource(e.target.value));
-        if(filters.sortAlphabetically !== '') {
-                dispatch(sortAlphabeticallyOrRating(filters.sortAlphabetically));
-        } 
-        if(filters.ratingSort !== '') {
-            dispatch(sortAlphabeticallyOrRating(filters.ratingSort));
-        } 
-        if (filters.gameGenre !== '') {
+        if(filters.gameGenre !== '') {
+            if(filters.sortAlphabetically === '' || filters.ratingSort !== '') {
+                dispatch(filterByGenre(filters.gameGenre));
+                dispatch(activeFilters(filters));
+            }
             dispatch(filterByGenre(filters.gameGenre));
+        }
+        if(filters.sortAlphabetically !== '') {
+            dispatch(sortAlphabeticallyOrRating(filters.sortAlphabetically));
+        } 
+        if (filters.ratingSort !== '') {
+            dispatch(sortAlphabeticallyOrRating(filters.ratingSort));
         }
         dispatch(activeFilters(filters));
     };
 
     return (
-        <nav>
-            {loading ? <h1>cargando</h1> 
-            :
-            <select
+        <nav className={style.container}>
+            <select 
+                className={style.select}
                 name='filterByGenres'
                 defaultValue={true}
                 onChange={handleGenreChange}
             >
-                <option value={true} disabled='disabled'>Filter by genres</option>
+                <option value={true} disabled='disabled'>Filter by genre</option>
                 <option value={'All'}>All</option>
                 {genres ? genres.map((genre, i) => {
                     return (
@@ -79,38 +88,32 @@ function Filters() {
                     )
                 }) : 'Not Working'};
             </select>
-            }
 
-            {loading ? <h1>cargando</h1>
-                :
-                <select
-                    name='sortAlphabetically'
-                    defaultValue={true}
-                    onChange={handleAlphAndRating}
-                    
+            <select
+                className={style.select}
+                name='sortAlphabetically'
+                defaultValue={true}
+                onChange={handleAlphAndRating}
+            >
+                <option value={true} disabled='disabled' ref={sortOption}>Sort Alphabetically or by Rating</option>
+                <option value={'ASC'}>A-Z</option>
+                <option value={'DESC'}>Z-A</option>
+                <option value={'HIG'}>Highest rating</option>
+                <option value={'LOW'}>Lowest rating</option>
+            </select>
 
-                >
-                    <option value={true} disabled='disabled' ref={sortOption}>Sort Alphabetically or by Rating</option>
-                    <option value={'ASC'}>A-Z</option>
-                    <option value={'DESC'}>Z-A</option>
-                    <option value={'HIG'}>Highest rating</option>
-                    <option value={'LOW'}>Lowest rating</option>
-                </select>
-            }
+            <select
+                className={style.select}
+                name='fromDbOrApi'
+                defaultValue={true}
+                onChange={handleSourceSelection}
+            >
+                <option value={true} disabled='disabled' ref={sourceOption}>Select source of Videogames</option>
+                <option value={'ALL'}>Database & API</option>
+                <option value={'API'}>API only</option>
+                <option value={'DB'}>Database only</option>
+            </select>
 
-            {loading ? <h1>cargando</h1>
-                :
-                <select
-                    name='fromDbOrApi'
-                    defaultValue={true}
-                    onChange={handleSourceSelection}
-                >
-                    <option value={true} disabled='disabled' ref={sourceOption}>Select source of Videogames</option>
-                    <option value={'ALL'}>Database & API</option>
-                    <option value={'API'}>API only</option>
-                    <option value={'DB'}>Database only</option>
-                </select>
-            }
         </nav>
     );
 };

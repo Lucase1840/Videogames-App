@@ -1,24 +1,20 @@
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import style from './navBar.module.css';
 import image from '../../images/bar-logo.jpg'
 import { NavLink, useHistory } from 'react-router-dom';
-import { searchByName } from '../../redux/actions';
+import { searchByName, setSearchName } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
-import Filters from '../filters/Filters.jsx'
+import Filters from '../filters/Filters.jsx';
+import searchImage from '../../images/icone-loupe-gris.png'
 
 
-function NavBar() { 
+function NavBar({id}) {
     const dispatch = useDispatch();
     const [name, setName] = useState('');
 
-    let history = useHistory();
+    let url = window.location.pathname;
 
-    // const handleKeyPress = function (e) {
-    //     const input = inputRef.current;
-    //     if (e.key === 'Enter') {
-    //       dispatch(searchByName(input.value));
-    //     }
-    // };
+    let history = useHistory();
 
     const handleChange = (e) => {
         setName(e.target.value);
@@ -26,35 +22,17 @@ function NavBar() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(name === '' || name.charCodeAt(0) === 32) return alert('Please, enter a valid videogame name to search')
         dispatch(searchByName(name));
-        setName('');
+        dispatch(setSearchName(true))
+        e.target.value = '';
         history.push('/videogames/results');
     }
-
-    // useEffect( () => {
-    //     const input = inputRef.current;
-    //     if(inputRef && inputRef.current) {
-    //         inputRef.current.addEventListener('keypress', function (e) {
-    //             if (e.key === 'Enter') {
-    //               dispatch(setSearchName(input.value));
-    //               dispatch(getAllGames(input.value));
-    //               input.value = '';
-    //             }
-    //     })}
-    //     return () => input.removeEventListener('keypress', ('keypress', function (e) {
-    //         if (e.key === 'Enter') {
-    //             dispatch(setSearchName(input.value));
-    //             dispatch(getAllGames(input.value));
-    //             input.value = '';
-    //         }
-    //     }));
-    // }, [dispatch])
-
-    console.log(name)
+    
     return (
         <div className={style.bar}>
             <NavLink to='/' className={style.link}>
-                <img src={image} className={style.image} alt='asd'></img>
+                <img src={image} className={style.image} alt='logo'></img>
                 <div className={style.titleContainer}>
                     <h2 className={style.title}>The</h2>
                     <h2 className={style.title}>GAME</h2>
@@ -62,34 +40,35 @@ function NavBar() {
                 </div>
             </NavLink>
 
-            <Filters/>
-
+            {(url === '/videogames/results' || url === '/videogame' || url === `/videogame/${id}`) ? ''
+            : <Filters className={style.filters}/>}
+            
             <div className={style.searchBar}>
                 <form onSubmit={handleSubmit}>
-                    <label>Search for a game </label>
-                    <input
-                        name='gameName'
-                        className={style.create}
-                        // ref={inputRef}
-                        placeholder='Search for a videogame by name'
-                        onChange={handleChange}
-                    >
-                    </input>
-                    {/* <NavLink to='/videogames/results'> */}
-                    <button type='submit'>
-                        asd
+                    <label className={(url === '/videogames/results') ? style.barLabelActive : ''}>Search for a game</label>
+                        <input
+                            name='gameName'
+                            className={style.create}
+                            placeholder='Search for a videogame by name'
+                            onChange={handleChange}
+                        >
+                        </input>
+                    <button type='submit' className={style.searchButton}>
+                        <img src={searchImage} className={style.searchIcon}></img>
                     </button>
-                    {/* </NavLink> */}
-
                 </form>
 
             </div>
-            <NavLink 
-            to='/videogames'
-            className={style.main}
+            <NavLink
+                to='/videogames'
+                className={(url === '/videogames') ? style.mainActive : style.main}
             >Main games
             </NavLink>
-            <NavLink to='/videogame' className={style.create}>Create a new game</NavLink>
+            <NavLink 
+                to='/videogame'
+                className={(url === '/videogame') ? style.createActive : style.create}
+            >Create a new game
+            </NavLink>
         </div>
     );
 };

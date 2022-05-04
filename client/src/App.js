@@ -10,7 +10,6 @@ import GamesSearched from './components/GamesSearched/GamesSearched.jsx';
 function App() {
   return (
     <div className="App">
-
       <Route exact path='/videogame/:id' render={({ match }) => (
         <GameDetail match={match} />)}
       />
@@ -20,7 +19,6 @@ function App() {
       <Route exact path='/videogames/results'><NavBar/><GamesSearched /></Route>
 
       <Route exact path='/videogames'><NavBar/><Games/></Route>
-
 
       <Route exact path="/"><LandingPage /></Route>
     </div>

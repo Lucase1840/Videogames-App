@@ -3,14 +3,16 @@ import { NavLink } from 'react-router-dom';
 import style from './gameCard.module.css';
 
 function GameCard(props) {
-    let genreToRender;
+    let genreToRenderDb;
     let dbGenres;
+    let imgDb
     
-    if(props.id.length > 16) {
-        dbGenres = props.genres.map((g, i) => {
+    if(props.id.length === 36) {
+        dbGenres = props.genres.map((g) => {
             return g.name;
     })
-        genreToRender = dbGenres.map(g => g).join(', ')
+        genreToRenderDb = dbGenres.join(', ');
+        imgDb = 'https://browsecat.net/sites/default/files/anime-mashup-hd-wallpapers-61372-837727-3623304.png'
     };
 
     if (props.loading) return <p>Loading...</p>;
@@ -20,11 +22,11 @@ function GameCard(props) {
             {props.loading ? <p>Loading...</p> : ''}
             <div className={style.cardContainer}>
                 <div className={style.imgContainer}>
-                    <img src={props.img} alt={props.name} className={style.image} />
+                    <img src={imgDb ? imgDb : props.img} alt={props.name} className={style.image} />
                 </div>
                 <div className={style.info}>
                     <h1>{props.name}</h1>
-                    <h3>{genreToRender ? genreToRender : props.genres}</h3>
+                    <h3>{genreToRenderDb ? genreToRenderDb : props.genres}</h3>
                     <NavLink
                         to={`/videogame/${props.id}`}
                         className={style.detailLink}

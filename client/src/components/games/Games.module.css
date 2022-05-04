@@ -5,6 +5,8 @@
     background-attachment: fixed;
     display: flex;
     flex-direction: column;
+    min-height: 86vh;
+    height: auto;
 }
 
 .gamesContainer {
@@ -18,4 +20,18 @@
 
 .pagination {  
     align-self: flex-end;
+}
+
+.noGames {
+    background-image: url('../../images/no-games.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 86vh;
+}
+.noGames h1 {
+    font-size: 3rem;
+    margin: 0px;
+    position: relative;
+    top: 150px;
+    color: white
 }

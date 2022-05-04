@@ -1,12 +1,14 @@
 .container {
     text-align: center;
     width: 300px;
+    height: 100px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
     padding-bottom: 15px;
+    flex-wrap: no-wrap;
 }
 
 .pageList {
@@ -21,7 +23,18 @@
     border-radius: 50px;
     color: white;
     font-size: 20px;
-    width: 100%;
+    width: 30px;
+    list-style-type: none;
+    padding-bottom: 4px;
+    margin-right: 9px;
+}
+
+.itemsSelected {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid white;
+    border-radius: 50px;
+    font-size: 20px;
+    width: 30px;
     list-style-type: none;
     padding-bottom: 4px;
     margin-right: 9px;
@@ -30,4 +43,27 @@
 .pages {
     color: rgb(199, 199, 199);
     text-decoration: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 20px;
+    width: 30px;
 }
+
+.pagesSelected {
+    text-decoration: none;
+    border-radius: 50px;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    width: 30px;
+    font-weight: bold;
+}
+
+.items:hover {
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+.items:hover a{
+    color: black;
+    font-weight: bold;
+}
+

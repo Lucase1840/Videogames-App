@@ -1,5 +1,4 @@
 const axios = require('axios');
-const { parse } = require('dotenv');
 const { URL, API_KEY } = process.env;
 const { Videogame, Genre } = require('../db');
 
@@ -16,7 +15,7 @@ module.exports = {
                     i++;
                 } while (i <= 2);
                 let gamesFound = results.filter(g => { return g.name.toLowerCase().includes(name.toLowerCase()) });
-                if (gamesFound.length < 1) return res.status(404).send({ message: 'No games found' });
+                if (!gamesFound.length) return res.send(['No games found']);
                 if (gamesFound.length > 15) gamesFound = gamesFound.slice(0, 15);
                 let gamesToDisplay = gamesFound.map(g => {
                     let genres = g.genres.map(g => g.name).join(', ');
@@ -52,7 +51,8 @@ module.exports = {
                         };
                         return game;
                     });
-                    results = results.concat(gamesToDisplay);
+                    let finalGames = gamesToDisplay.filter(g => g.id !== 58134);
+                    results = results.concat(finalGames);
                     i++;
                 } while (i <= 5);
                 res.status(200).send(results);
