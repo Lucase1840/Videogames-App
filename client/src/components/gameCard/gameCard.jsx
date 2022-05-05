@@ -8,10 +8,12 @@ function GameCard(props) {
     let imgDb
     
     if(props.id.length === 36) {
-        dbGenres = props.genres.map((g) => {
-            return g.name;
-    })
-        genreToRenderDb = dbGenres.join(', ');
+        if (typeof props.genres !== 'string') {
+            dbGenres = props.genres.map((g) => {
+                return g.name;     
+            })
+            genreToRenderDb = dbGenres.join(', ');
+        }
         imgDb = 'https://browsecat.net/sites/default/files/anime-mashup-hd-wallpapers-61372-837727-3623304.png'
     };
 
