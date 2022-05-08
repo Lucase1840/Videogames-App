@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchById, setSearchName } from '../../redux/actions';
+import { searchById } from '../../redux/actions';
 import style from './GameDetail.module.css'
 import NavBar from '../navBar/navBar.jsx';
 import Loading from '../loading/loading.jsx';
@@ -49,7 +49,11 @@ function GameDetail(props) {
                 </div>
                 
             </div>
-        </div>) : (<Loading />)}
+        </div>) : (
+            <div>
+                <NavBar id={id}/>
+                <Loading />
+            </div>)}
         </>
     )
 }

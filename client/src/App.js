@@ -13,12 +13,12 @@ function App() {
       <Route exact path='/videogame/:id' render={({ match }) => (
         <GameDetail match={match} />)}
       />
-      
-      <Route exact path='/videogame/'><NavBar /><CreateGame /></Route>
-      
-      <Route exact path='/videogames/results'><NavBar/><GamesSearched /></Route>
 
-      <Route exact path='/videogames'><NavBar/><Games/></Route>
+      <Route exact path='/videogame/'><NavBar /><CreateGame /></Route>
+
+      <Route exact path='/videogames/results'><NavBar /><GamesSearched /></Route>
+
+      <Route exact path='/videogames'><NavBar /><Games /></Route>
 
       <Route exact path="/"><LandingPage /></Route>
     </div>

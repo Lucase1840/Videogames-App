@@ -2,12 +2,9 @@
 const { expect } = require('chai');
 const session = require('supertest-session');
 const app = require('../../src/app.js');
-const { Videogame, conn } = require('../../src/db.js');
+const { Videogame, Genre, conn } = require('../../src/db.js');
 
 const agent = session(app);
-const videogame = {
-  name: 'Super Mario Bros',
-};
 
 describe('Videogame routes', () => {
   before(() => conn.authenticate()
@@ -15,10 +12,83 @@ describe('Videogame routes', () => {
     console.error('Unable to connect to the database:', err);
   }));
   beforeEach(() => Videogame.sync({ force: true })
-    .then(() => Videogame.create(videogame)));
-  describe('GET /videogames', () => {
-    it('should get 200', () =>
-      agent.get('/videogames').expect(200)
+    .then(() => Videogame.create({
+      name: "Lucas Game",
+      description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores, iste",
+      releaseDate: '2022/01/05',
+      rating: 5.00,
+      platforms: "Playstation 2, Nintendo",
+      genres: ['Action', 'Adventure'],
+    })
+    )
     );
+
+  describe('GET /genres', () => {
+    it('should get 200', () =>
+      agent.get('/genres').expect(200)
+    );
+  });
+
+describe("POST /videogame", () => {
+  it("should get 200", () => {
+    agent
+      .post("/videogame")
+      .send({
+        name: "Game Lucas",
+        description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores, iste",
+        releaseDate: '2022/01/05',
+        rating: 5.00,
+        platforms: ["Playstation 2", "Nintendo"],
+        genres: ['Action', 'Adventure'],
+      })
+      .expect(200);
+  });
+  it("creates a game in database", () => {
+    agent
+      .post("videogame")
+      .send({
+        name: "Luke Game",
+        description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores, iste",
+        releaseDate: '2022/01/05',
+        rating: 5.00,
+        platforms: ["Playstation 2", "Nintendo"],
+        genres: ['Action', 'Adventure'],
+      })
+      .then(() => {
+        Videogame.findOne({
+          where: {
+            name: "Luke Game",
+          },
+        });
+      })
+      .then((game) => {
+        expect(game).to.exist;
+      });
+  });
+  it('correctly sets games in database', () => {
+    agent.post('/videogame')
+    .send({
+      name: "Luke Skywalker",
+      description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores, iste",
+      releaseDate: '2022/01/05',
+      rating: 5.00,
+      platforms: ["Playstation 2", "Nintendo"],
+      genres: ['Action', 'Adventure'],
+    })
+    .then(() => {
+      Videogame.findOne({
+        where: {
+          name: 'Luke Skywalker'
+        },
+        include: {
+          model: Genre
+        }
+      });
+    })
+    .then((game) => {
+      expect(game.genre[0].name).to.equal('Action');
+      expect(game.genre[1].name).to.equal('Adventure');
+      })
+    })
   });
 });

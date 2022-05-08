@@ -80,48 +80,48 @@ const rootReducer = (state = initialState, action) => {
         let result;
 
         // CODIGO A PRRUEBA COMIENZA
-        // if ((!state.activeFilters.sortAlphabetically && !state.activeFilters.ratingSort) && state.activeFilters.source) {
-        //     if (genre === 'All') {
-        //         return {
-        //             ...state,
-        //             filteredGames: state.filteredGames
-        //         }
-        //     } else {
-        //         gamesToSortByGenre = state.filteredGames;
-        //         if (gamesToSortByGenre[0] === 'No games found') {
-        //             return {
-        //                 ...state,
-        //                 filteredGames: ['No games found']
-        //             };
-        //         }
-        //         result = gamesToSortByGenre.filter(game => {
-        //             if (game.id.length === 36) {
-        //                 let flag = false;
-        //                 let i = 0;
-        //                 while (i < game.genres.length && flag === false) {
-        //                     if (game.genres[i].name === genre) {
-        //                         return flag = true;
-        //                     } else {
-        //                         i++;
-        //                     }
-        //                 }
-        //                 return flag;
-        //             } else {
-        //                 return game.genres.includes(genre)
-        //             }
-        //         });
-        //     };
-        //     if (result.length === 0) {
-        //         return {
-        //             ...state,
-        //             filteredGames: ['No games found']
-        //         };
-        //     }
-        //     return {
-        //         ...state,
-        //         filteredGames: result
-        //     };
-        // }
+        if ((!state.activeFilters.sortAlphabetically && !state.activeFilters.ratingSort && state.activeFilters.gameGenre) && state.activeFilters.source) {
+            if (genre === 'All') {
+                return {
+                    ...state,
+                    filteredGames: state.filteredGames
+                }
+            } else {
+                gamesToSortByGenre = state.filteredGames;
+                if (gamesToSortByGenre[0] === 'No games found') {
+                    return {
+                        ...state,
+                        filteredGames: ['No games found']
+                    };
+                }
+                result = gamesToSortByGenre.filter(game => {
+                    if (game.id.length === 36) {
+                        let flag = false;
+                        let i = 0;
+                        while (i < game.genres.length && flag === false) {
+                            if (game.genres[i].name === genre) {
+                                return flag = true;
+                            } else {
+                                i++;
+                            }
+                        }
+                        return flag;
+                    } else {
+                        return game.genres.includes(genre)
+                    }
+                });
+            };
+            if (result.length === 0) {
+                return {
+                    ...state,
+                    filteredGames: ['No games found']
+                };
+            }
+            return {
+                ...state,
+                filteredGames: result
+            };
+        }
 
         // CODIGO A PRUEBA FINALIZA
         if ((state.activeFilters.sortAlphabetically !== '' || state.activeFilters.ratingSort !== '') && state.activeFilters.source === 'DB') {
@@ -299,16 +299,22 @@ const rootReducer = (state = initialState, action) => {
     if (action.type === FILTER_BY_SOURCE) {
         // CODIGO A PRUEBA COMIENZA
         if ((!state.activeFilters.sortAlphabetically && !state.activeFilters.ratingSort) && state.activeFilters.gameGenre) {
-            let gamesToFilter = state.filteredGames
+            let gamesToFilter = state.mainGames
             let gamesFilteredBySource;
             if (action.payload === 'ALL') {
-                gamesFilteredBySource = state.filteredGames;
+                gamesFilteredBySource = state.mainGames;
             }
             if (action.payload === 'DB') {
                 gamesFilteredBySource = gamesToFilter.filter(g => g.id.length === 36);
             }
             if (action.payload === 'API') {
                 gamesFilteredBySource = gamesToFilter.filter(g => g.id.length !== 36);
+            }
+            if (gamesFilteredBySource.length === 0) {
+                return {
+                    ...state,
+                    filteredGames: ['No games found']
+                };
             }
             return {
                 ...state,
@@ -326,6 +332,12 @@ const rootReducer = (state = initialState, action) => {
         }
         if (action.payload === 'API') {
             gamesFilteredBySource = gamesToFilter.filter(g => g.id.length !== 36);
+        }
+        if (gamesFilteredBySource.length === 0) {
+            return {
+                ...state,
+                filteredGames: ['No games found']
+            };
         }
         return {
             ...state,

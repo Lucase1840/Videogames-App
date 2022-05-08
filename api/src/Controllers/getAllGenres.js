@@ -6,12 +6,12 @@ module.exports = {
     getAllGenres: async function (req, res) {
         try {
             let myData = await Genre.findAll();
-            if(myData.length !== 0) {
+            if (myData.length !== 0) {
                 return res.json(myData);
             } else {
                 let genresApi = await axios.get(`${URL}genres?key=${API_KEY}`);
                 let genresNames = genresApi.data.results.map(g => {
-                    return { 
+                    return {
                         name: g.name,
                         img: g.image_background
                     };
@@ -20,8 +20,8 @@ module.exports = {
                 let genresDb = await Genre.findAll();
                 res.status(200).send(genresDb);
             };
-            } catch(error) {
-                console.log(error);
+        } catch (error) {
+            console.log(error);
         };
     }
 };

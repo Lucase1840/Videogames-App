@@ -227,8 +227,8 @@ function CreateGame() {
 
 export const validate = function (input) {
     let errors = {};
-    if(!input.name || input.name.length < 3) {
-        errors.name = 'The videogame name must be at least 3 characters long';
+    if(!input.name || input.name.length < 2 || typeof input.name !== 'string') {
+        errors.name = 'The videogame name must be at least 2 characters';
     } else if (/["`'#%&,:;<>=@{}~$()*+/?[\]^|]+/.test(input.name)) {
         errors.name = 'The videogame name can not contain special characters';
     };

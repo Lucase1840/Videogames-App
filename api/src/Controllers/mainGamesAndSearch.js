@@ -16,7 +16,7 @@ module.exports = {
                         }
                     ]
                 });
-                results = dataBaseGames;
+                results = dataBaseGames.filter(g => { return g.name.toLowerCase().includes(name.toLowerCase()) });
                 let i = 1;
                 do {
                     let games = await axios.get(`${URL}games?search=${name}&key=${API_KEY}&page=${i}`);
@@ -25,7 +25,7 @@ module.exports = {
                 } while (i <= 2);
                 let gamesFound = results.filter(g => { return g.name.toLowerCase().includes(name.toLowerCase()) });
                 if (!gamesFound.length) return res.send(['No games found']);
-                if (gamesFound.length > 15) gamesFound = gamesFound.slice(0, (15 + dataBaseGames.length));
+                if (gamesFound.length > 15) gamesFound = gamesFound.slice(0, 15);
                 let gamesToDisplay = gamesFound.map(g => {
                     let genres = g.genres.map(g => g.name).join(', ');
                     let game = {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGenres, filterByGenre, sortAlphabeticallyOrRating, activeFilters, filterBySource, pagination } from '../../redux/actions';
 import style from '../filters/Filters.module.css';
@@ -42,11 +42,13 @@ function Filters() {
     const handleAlphAndRating = function (e) {
         dispatch(pagination(1));
         if (e.target.value === 'ASC' || e.target.value === 'DESC') {
-            filters.sortAlphabetically = e.target.value
+            filters.sortAlphabetically = e.target.value;
+            filters.ratingSort = '';
             dispatch(sortAlphabeticallyOrRating(e.target.value));
             dispatch(activeFilters(filters));
         } else {
-            filters.ratingSort = e.target.value
+            filters.ratingSort = e.target.value;
+            filters.sortAlphabetically = '';
             dispatch(sortAlphabeticallyOrRating(e.target.value));
             dispatch(activeFilters(filters));
         };
@@ -57,7 +59,7 @@ function Filters() {
         filters.source = e.target.value
         dispatch(filterBySource(e.target.value));
         if(filters.gameGenre !== '') {
-            if(filters.sortAlphabetically === '' || filters.ratingSort !== '') {
+            if(filters.sortAlphabetically === '' || filters.ratingSort === '') {
                 dispatch(filterByGenre(filters.gameGenre));
                 dispatch(activeFilters(filters));
             }
