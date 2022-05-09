@@ -1,8 +1,8 @@
 .cardContainer {
     width: 475px;
     height: 420px;
-    background-image: linear-gradient(0deg, rgba(30,27,38, 1) 45%, rgba(255, 255, 255, 0.1) 60%);
-    box-shadow:10px 10px 20px 5px rgb(0, 0, 0);
+    background-image: linear-gradient(0deg, rgba(30, 27, 38, 1) 45%, rgba(255, 255, 255, 0.1) 60%);
+    box-shadow: 10px 10px 20px 5px rgb(0, 0, 0);
     border-radius: 4px;
     margin: 20px 50px 20px 50px;
     display: flex;

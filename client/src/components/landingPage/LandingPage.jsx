@@ -7,8 +7,8 @@ import { useDispatch } from 'react-redux';
 function LandingPage() {
 
     const dispatch = useDispatch();
-    
-    useEffect( () => {
+
+    useEffect(() => {
         dispatch(getAllGames());
         dispatch(getGenres())
     }, [dispatch]);
@@ -17,7 +17,7 @@ function LandingPage() {
         <div className={style.landingContainer}>
             <div className={style.start}>
                 <div>Press</div>
-                <NavLink to="/videogames" className={style.link}>START</NavLink> 
+                <NavLink to="/videogames" className={style.link}>START</NavLink>
                 <div>to begin</div>
             </div>
         </div>

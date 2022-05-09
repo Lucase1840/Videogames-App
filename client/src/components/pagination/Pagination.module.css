@@ -18,6 +18,7 @@
     flex-direction: row;
     justify-content: center;
 }
+
 .items {
     border: 1px solid white;
     border-radius: 50px;
@@ -39,7 +40,7 @@
     padding-bottom: 4px;
     margin-right: 9px;
 }
-    
+
 .pages {
     color: rgb(199, 199, 199);
     text-decoration: none;
@@ -62,8 +63,8 @@
     background-color: rgb(255, 255, 255);
     color: black;
 }
-.items:hover a{
+
+.items:hover a {
     color: black;
     font-weight: bold;
 }
-

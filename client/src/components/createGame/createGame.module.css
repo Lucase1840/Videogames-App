@@ -1,7 +1,7 @@
 .mainContainer {
     width: 100%;
     height: auto;
-    background-image: url('../../images/optional.jpg');
+    background-image: url('../../images/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -15,14 +15,14 @@
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-items: center;
-  justify-content: flex-start;
-  width: 300px;
-  min-height: 894px;
-  margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    justify-content: flex-start;
+    width: 300px;
+    min-height: 894px;
+    margin: 0 auto;
 }
 
 .for {
@@ -41,6 +41,10 @@
     align-items: flex-start;
     align-content: stretch;
     position: relative;
+}
+
+.fromNameToGenres textarea {
+    font-family: sans-serif;
 }
 
 .fromNameToGenres span {
@@ -85,6 +89,7 @@
     width: 300px;
     border-radius: 15px;
 }
+
 .labelSelected {
     margin-top: -15px;
     margin-bottom: 15px;

@@ -21,7 +21,6 @@
     color: white;
     position: relative;
     margin-left: 325px;
-    
 }
 
 .container h2 {
@@ -39,7 +38,15 @@
 
 
 @keyframes loading {
-0% {opacity: 0;}  
-50% {opacity: 1}
-100% {opacity: 0}
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1
+    }
+
+    100% {
+        opacity: 0
+    }
 }

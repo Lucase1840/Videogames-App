@@ -6,11 +6,11 @@ function GameCard(props) {
     let genreToRenderDb;
     let dbGenres;
     let imgDb
-    
-    if(props.id.length === 36) {
+
+    if (props.id.length === 36) {
         if (typeof props.genres !== 'string') {
             dbGenres = props.genres.map((g) => {
-                return g.name;     
+                return g.name;
             })
             genreToRenderDb = dbGenres.join(', ');
         }

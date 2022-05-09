@@ -6,25 +6,22 @@ import style from '../filters/Filters.module.css';
 function Filters() {
     const dispatch = useDispatch();
     const genres = useSelector(state => state.genres);
-    // const [loading, setLoading] = useState(false);
     let filters = {
-            gameGenre: '',
-            sortAlphabetically: '',
-            ratingSort: '',
-            source: ''
-    }
+        gameGenre: '',
+        sortAlphabetically: '',
+        ratingSort: '',
+        source: ''
+    };
 
-    let sortOption = useRef(null)
-    let sourceOption = useRef(null)
+    let sortOption = useRef(null);
+    let sourceOption = useRef(null);
 
     useEffect(() => {
-        // setLoading(true);
-        if(genres.length === 0) {
+        if (genres.length === 0) {
             dispatch(getGenres());
         }
-        // setLoading(false);
     }, []);
-    
+
     const handleGenreChange = function (e) {
         dispatch(pagination(1));
         filters = {
@@ -32,7 +29,7 @@ function Filters() {
             ratingSort: '',
             source: '',
             gameGenre: e.target.value
-        }
+        };
         dispatch(activeFilters(filters));
         dispatch(filterByGenre(e.target.value));
         sortOption.current.selected = 'selected';
@@ -56,27 +53,27 @@ function Filters() {
 
     const handleSourceSelection = function (e) {
         dispatch(pagination(1));
-        filters.source = e.target.value
+        filters.source = e.target.value;
         dispatch(filterBySource(e.target.value));
-        if(filters.gameGenre !== '') {
-            if(filters.sortAlphabetically === '' || filters.ratingSort === '') {
+        if (filters.gameGenre !== '') {
+            if (filters.sortAlphabetically === '' || filters.ratingSort === '') {
                 dispatch(filterByGenre(filters.gameGenre));
                 dispatch(activeFilters(filters));
-            }
+            };
             dispatch(filterByGenre(filters.gameGenre));
-        }
-        if(filters.sortAlphabetically !== '') {
+        };
+        if (filters.sortAlphabetically !== '') {
             dispatch(sortAlphabeticallyOrRating(filters.sortAlphabetically));
-        } 
+        };
         if (filters.ratingSort !== '') {
             dispatch(sortAlphabeticallyOrRating(filters.ratingSort));
-        }
+        };
         dispatch(activeFilters(filters));
     };
 
     return (
         <nav className={style.container}>
-            <select 
+            <select
                 className={style.select}
                 name='filterByGenres'
                 defaultValue={true}

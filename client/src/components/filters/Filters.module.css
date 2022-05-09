@@ -18,7 +18,6 @@
     border: 2px solid rgb(215, 215, 215);
     border-radius: 10px;
     background: rgb(0, 0, 0);
-    /* text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; */
 }
 
 .select option {
@@ -29,7 +28,6 @@
     font-size: 15px;
     font-weight: bold;
     color: rgb(255, 255, 255);
-    /* text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; */
 }
 
 .select:focus {

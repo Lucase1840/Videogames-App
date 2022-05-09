@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import style from './Pagination.module.css'
 
 function Pagination({ gamesPerPage, totalGames, paginate }) {
-    
+
     const actualPage = useSelector(state => state.pagination);
 
     useEffect(() => {
@@ -19,7 +19,7 @@ function Pagination({ gamesPerPage, totalGames, paginate }) {
             <ul className={style.pageList}>
                 {pageNumbers ? pageNumbers.map(number => {
                     return (
-                        <li 
+                        <li
                             key={number}
                             className={(actualPage === number) ? style.itemsSelected : style.items}>
                             <a
@@ -27,7 +27,7 @@ function Pagination({ gamesPerPage, totalGames, paginate }) {
                                     () => paginate(number)
                                 }
                                 href='#top'
-                                className={(actualPage === number) ? style.pagesSelected: style.pages}
+                                className={(actualPage === number) ? style.pagesSelected : style.pages}
                             >{number}
                             </a>
                         </li>

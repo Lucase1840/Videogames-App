@@ -20,7 +20,7 @@ function Games() {
     const [gamesPerPage] = useState(15);
     const indexOfLastGame = currentPage * gamesPerPage;
     const indexOfFirstGame = indexOfLastGame - gamesPerPage;
-    const paginate = function(pageNumber) {
+    const paginate = function (pageNumber) {
         setCurrentPage(pageNumber);
         dispatch(pagination(pageNumber));
     };
@@ -31,17 +31,15 @@ function Games() {
     const currentGames = games.slice(indexOfFirstGame, indexOfLastGame);
 
     useEffect(() => {
-        if(statePage) setCurrentPage(statePage);
-        if(mainGamesToShow.length === 0) {
+        if (statePage) setCurrentPage(statePage);
+        if (mainGamesToShow.length === 0) {
             dispatch(getAllGames());
         }
-        if(mainGamesToShow.length !== 0) {
+        if (mainGamesToShow.length !== 0) {
             setLoading(false);
         }
     }, [holeState, currentGames]);
 
-    console.log(currentPage)
-    console.log(statePage)
     return (
         <>
             {loading === false ?
@@ -68,7 +66,7 @@ function Games() {
                                 paginate={paginate}
                             />
                         </div>) : (
-                            <div className={style.noGames}><h1>¡No videogames found!</h1></div> )
+                        <div className={style.noGames}><h1>¡No videogames found!</h1></div>)
                 ) : <Loading />}
         </>)
 };

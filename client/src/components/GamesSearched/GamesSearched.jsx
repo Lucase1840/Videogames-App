@@ -7,30 +7,29 @@ import Loading from '../loading/loading.jsx';
 import { pagination } from '../../redux/actions';
 
 function GamesSearched() {
-    // STATES & DISPATCHS
     const dispatch = useDispatch();
     const gamesSearched = useSelector(state => state.gamesByName);
-    const name = useSelector(state => state.searchName);
+    const load = useSelector(state => state.loading);
     const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         dispatch(pagination(1));
-        if(!name) {
+        if (!load) {
             setLoading(false);
         } else {
             setLoading(true);
         }
-    }, [gamesSearched, name]);
-    
-    
+    }, [gamesSearched, load]);
+
+
     const [gamesPerPage] = useState(15);
     const indexOfLastGame = currentPage * gamesPerPage;
     const indexOfFirstGame = indexOfLastGame - gamesPerPage;
     const currentGames = gamesSearched.slice(indexOfFirstGame, indexOfLastGame);
-    
 
-    const paginate = function(pageNumber) {
+
+    const paginate = function (pageNumber) {
         setCurrentPage(pageNumber);
     };
 
@@ -52,15 +51,15 @@ function GamesSearched() {
                                 )
                             }) : 'Not Working'}
                         </div>
-
+                        
                         <Pagination className={style.pagination}
                             gamesPerPage={gamesPerPage}
                             totalGames={gamesSearched.length}
                             paginate={paginate}
                         />
-                    </div> : 
-                        <div className={style.noGames}><h1>¡No videogames found!</h1></div>) 
-            : (<Loading />)}
+                    </div> :
+                    <div className={style.noGames}><h1>¡No videogames found!</h1></div>)
+                : (<Loading />)}
         </>
     );
 }

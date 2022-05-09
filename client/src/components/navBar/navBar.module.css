@@ -3,13 +3,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color:rgb(0, 0, 0);
+    background-color: rgb(0, 0, 0);
     height: 136px;
     width: 100%;
 }
 
 .link {
-    text-decoration: none;  
+    text-decoration: none;
 }
 
 .image {
@@ -146,20 +146,28 @@
 .searchBar:hover input {
     visibility: visible;
     animation-name: search;
-    animation-duration:1.5s;
+    animation-duration: 1.5s;
     animation-timing-function: ease-in-out;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }
 
 @keyframes search {
-    0% {width: 0px; opacity: 0;}  
-    100% {width: 225px; opacity: 1; margin-left: 15px;}
-} 
+    0% {
+        width: 0px;
+        opacity: 0;
+    }
+
+    100% {
+        width: 225px;
+        opacity: 1;
+        margin-left: 15px;
+    }
+}
 
 .searchBar input:focus {
     visibility: visible;
-    width: 225px; 
+    width: 225px;
     opacity: 1;
     animation-name: none;
     margin-left: 15px;

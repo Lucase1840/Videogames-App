@@ -1,5 +1,5 @@
 .mainContainer {
-    background-image: url('../../images/optional.jpg');
+    background-image: url('../../images/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -15,11 +15,11 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly; 
+    justify-content: space-evenly;
     z-index: 1 !important;
 }
 
-.pagination {  
+.pagination {
     align-self: flex-end;
 }
 
@@ -29,6 +29,7 @@
     background-size: cover;
     min-height: 86vh;
 }
+
 .noGames h1 {
     font-size: 3rem;
     margin: 0px;
