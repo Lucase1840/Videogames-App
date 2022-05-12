@@ -1,9 +1,9 @@
 # The
 # GAME
 # Searcher
-<p align="right">
-  <img height="200" src="./videogame.png" />
-</p>
+
+<img alt='scr' src='/src/images/Readme/main.page.jpg'/>
+
 
 
 ## The project:
@@ -48,7 +48,7 @@ The data is extracted from the RAWG videogames API (https://rawg.io/apidocs)
 
 ## To execute the app in your computer browser:
 
-First fork the repository in your PC.
+First clone the repository in your PC.
 
 Open a git-bash terminal in both "client" and "api" folders, and type "npm install" . 
 
