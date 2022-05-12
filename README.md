@@ -2,7 +2,7 @@
 # GAME
 # Searcher
 
-<img alt='scr' src='/src/images/Readme/main.page.jpg'/>
+<img alt='scr' src='https://github.com/Lucase1840/Videogames-App/blob/master/client/src/images/Readme/main-page.jpg'/>
 
 
 
